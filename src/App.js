@@ -1,24 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from 'react';
+import Nav from './components/Nav';
+import KekStudents from './components/KekStudents';
 
 function App() {
+
+  const [kekambas, setKekambas] = useState([]);
+
+  useEffect(() => {
+    fetch('https://scratched-juniper-salto.glitch.me/kekambas')
+      .then(res => res.json())
+      .then(data => setKekambas(data));
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Nav />
+      <div className="container">
+        <h1 className="text-center m-3 mb-5 text-light">Kekambas Students</h1>
+        <KekStudents kekambas={kekambas} />
+      </div>
+    </>
   );
 }
 
